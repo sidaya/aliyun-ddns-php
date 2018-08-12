@@ -2,7 +2,7 @@
 
 <h3>关于作者</h3>
 <p>原作者地址https://github.com/kasuganosoras/SakuraDDNS</p>
-<p>本人仅修复了获取ip的api失效问题</p>
+<p>本人仅修复了获取ip的api失效问题和修改了api调用逻辑</p>
 <h3>这是什么？</h3>
 <p>这是一个 PHP 编写的万网 DDNS 软件，让某些家中有公网 IP 的 dalao 们可以充分利用宽带资源做一切可以实现的事情。</p>
 

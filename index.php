@@ -68,15 +68,15 @@ class AliyunAPI {
 $url = "http://alidns.aliyuncs.com/?";
 $ip = $_SERVER["REMOTE_ADDR"]; 
 $api = "http://ip.taobao.com/service/getIpInfo.php?ip=myip";   // 获取本机 IP 地址的 API
-$accessKeyId = "LTAIPsQb1V51WbVk";
-$accessKeySecret = "PFetjZJhpR7JJvH7KI17UCfb1SQX1I";
+$accessKeyId = "你的accessKeyId";
+$accessKeySecret = "你的accessKey秘钥";
 
 $arr = Array(
     "Action" => "DescribeDomainRecords",    // 业务类型标识，请勿修改
-    "DomainName" => "heysida.cn",          // 要解析的域名
+    "DomainName" => "你的域名，如baidu.com",          // 要解析的域名
     "RecordID" => "",                       // 记录ID，留空，请勿修改
     "Value" => "",                          // 记录值，留空，请勿修改
-    "RR" => "test",                         // 解析主机名，改为你需要的
+    "RR" => "主机名，如www",                         // 解析主机名，改为你需要的
     "Type" => "A",                          // 记录类型，请勿修改
     "TTL" => 600                            // TTL 生存时间，默认 600
 );

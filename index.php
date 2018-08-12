@@ -66,12 +66,10 @@ class AliyunAPI {
  */
 
 $url = "http://alidns.aliyuncs.com/?";
-                                                            
-
- $ip = $_SERVER["REMOTE_ADDR"]; 					 // 获取本机 IP 地址
-
-$accessKeyId = "你的accessKeyId";					//你的accessKeyId
-$accessKeySecret = "你的accessKey秘钥";//你的accessKey秘钥
+$ip = $_SERVER["REMOTE_ADDR"]; 
+$api = "http://ip.taobao.com/service/getIpInfo.php?ip=myip";   // 获取本机 IP 地址的 API
+$accessKeyId = "LTAIPsQb1V51WbVk";
+$accessKeySecret = "PFetjZJhpR7JJvH7KI17UCfb1SQX1I";
 
 $arr = Array(
     "Action" => "DescribeDomainRecords",    // 业务类型标识，请勿修改
@@ -100,9 +98,29 @@ if(isset($recordList["DomainRecords"]["Record"])) {
         if($record["RR"] == $arr["RR"] && $record["Type"] == "A") {
             $arr["RecordId"] = $record["RecordId"];
             $arr["Action"] = "UpdateDomainRecord";
-            
-           
-            $arr["Value"] = $ip;
+
+
+            //初始化
+    $curl = curl_init();
+    //设置抓取的url
+    curl_setopt($curl, CURLOPT_URL, $api);
+    //设置获取的信息以文件流的形式返回，而不是直接输出。
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    //执行命令
+    $data = curl_exec($curl);
+    //关闭URL请求
+    curl_close($curl);
+    //显示获得的数据
+
+$str=$data;
+$newip=substr($str,0,strpos($str, '","country'));
+$newip = substr($newip,24);
+
+if ($ip1==10){$ip=$newip;}
+if ($ip1==127){$ip=$newip;}
+if ($ip1==172){$ip=$newip;}
+if ($ip1==192){$ip=$newip;}
+          $arr["Value"] = $ip;
             
             if($arr["RecordId"] !== "" && $arr["Value"] !== "") {
                 $obj = new AliyunAPI($arr, $url, $accessKeyId, $accessKeySecret);
@@ -128,3 +146,4 @@ if(isset($recordList["DomainRecords"]["Record"])) {
     echo "Empty record list.";
     exit;
 }
+?>

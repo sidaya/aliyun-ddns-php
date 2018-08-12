@@ -1,6 +1,6 @@
 # 阿里云DDNS PHP版
 
-<h3><关于作者/h3>
+<h3>关于作者</h3>
 <p>原作者地址https://github.com/kasuganosoras/SakuraDDNS</p>
 <p>本人仅修复了获取ip的api失效问题</p>
 <h3>这是什么？</h3>

@@ -1,11 +1,5 @@
 <?php
-/**
- *
- *    Sakura DDNS 阿里云 万网 DDNS
- *
- *    GNU General Public License V3
- *
- */
+
 class AliyunAPI {
     
     public $data;
@@ -72,17 +66,19 @@ class AliyunAPI {
  */
 
 $url = "http://alidns.aliyuncs.com/?";
-$api = "http://2017.ip138.com/ic.asp";      // 获取本机 IP 地址的 API
+                                                            
 
-$accessKeyId = "Your Access Key ID";
-$accessKeySecret = "Your Access Key Secret";
+ $ip = $_SERVER["REMOTE_ADDR"]; 					 // 获取本机 IP 地址
+
+$accessKeyId = "你的accessKeyId";					//你的accessKeyId
+$accessKeySecret = "你的accessKey秘钥";//你的accessKey秘钥
 
 $arr = Array(
     "Action" => "DescribeDomainRecords",    // 业务类型标识，请勿修改
-    "DomainName" => "example.com",          // 要解析的域名
+    "DomainName" => "heysida.cn",          // 要解析的域名
     "RecordID" => "",                       // 记录ID，留空，请勿修改
     "Value" => "",                          // 记录值，留空，请勿修改
-    "RR" => "ddns",                         // 解析主机名，改为你需要的
+    "RR" => "test",                         // 解析主机名，改为你需要的
     "Type" => "A",                          // 记录类型，请勿修改
     "TTL" => 600                            // TTL 生存时间，默认 600
 );
@@ -105,18 +101,15 @@ if(isset($recordList["DomainRecords"]["Record"])) {
             $arr["RecordId"] = $record["RecordId"];
             $arr["Action"] = "UpdateDomainRecord";
             
-            $NewIP = file_get_contents($api);
-            $NewIP = stristr(stristr($NewIP, "]", true), "[");
-            $NewIP = mb_substr($NewIP, 1, mb_strlen($NewIP, "GB2312"), "GB2312");
-            $NewIP = iconv("GB2312", "UTF-8", $NewIP);
-            $arr["Value"] = $NewIP;
+           
+            $arr["Value"] = $ip;
             
             if($arr["RecordId"] !== "" && $arr["Value"] !== "") {
                 $obj = new AliyunAPI($arr, $url, $accessKeyId, $accessKeySecret);
                 $result = json_decode($obj->callInterface(), true);
                 
                 if(isset($result["RecordId"]) && $result["RecordId"] == $record["RecordId"]) {
-                    echo "Successful update domain record.";
+                    echo "Successful update domain record,the new ip is:",$ip;
                     exit;
                 } else {
                     if(isset($result["Message"])) {

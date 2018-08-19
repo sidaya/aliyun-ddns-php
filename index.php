@@ -111,7 +111,7 @@ if(isset($recordList["DomainRecords"]["Record"])) {
     //关闭URL请求
     curl_close($curl);
     //显示获得的数据
-
+$ip1=substr($ip,0,strpos($ip, '.'));
 $str=$data;
 $newip=substr($str,0,strpos($str, '","country'));
 $newip = substr($newip,24);

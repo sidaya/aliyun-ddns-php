@@ -67,7 +67,7 @@ class AliyunAPI {
 
 $url = "http://alidns.aliyuncs.com/?";
 $ip = $_SERVER["REMOTE_ADDR"]; 
-$api = "http://ip.taobao.com/service/getIpInfo.php?ip=myip";   // 获取本机 IP 地址的 API
+$api = "http://ip-api.com/json/";   // 获取本机 IP 地址的 API
 $accessKeyId = "你的accessKeyId";
 $accessKeySecret = "你的accessKey秘钥";
 
@@ -113,8 +113,8 @@ if(isset($recordList["DomainRecords"]["Record"])) {
     //显示获得的数据
 $ip1=substr($ip,0,strpos($ip, '.'));
 $str=$data;
-$newip=substr($str,0,strpos($str, '","country'));
-$newip = substr($newip,24);
+$newip=substr($str,0,strpos($str, '","region'));
+$newip = substr($newip,strpos($newip,'"query":"')+9);
 
 if ($ip1==10){$ip=$newip;}
 if ($ip1==127){$ip=$newip;}
